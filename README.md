@@ -23,3 +23,10 @@ This library exists to turn a raw header string into a predictable object that y
 - **Empty or non-string input:** returns `null`.
 
 The exported function is `parseHSTS(header)`. It returns an object with `maxAge` (number), `includeSubDomains` (boolean), and `preload` (boolean), or `null` when the header does not contain a valid policy.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
